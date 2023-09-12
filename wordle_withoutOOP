@@ -1,0 +1,47 @@
+import random
+
+
+def print_instructions():
+    print('''\n Wordle is a word guessing game.
+    You have 5 attempts to guess the randomly generated four lettered word
+    ✓ means that the guessed letter is in the word and in the correct position
+    × means that the guessed letter is in the word but in the incorrect position
+    _ means that the guessed letter is not in the word
+
+    Best of luck!!!''')
+
+
+def check_word(guess, hidden_word):
+    if hidden_word == guess:
+        print("Congrats! You won!")
+        return True
+    else:
+        result = ""
+        for i, j in zip(guess, hidden_word):
+            if i == j:
+                result = result + "✓"
+            elif i in hidden_word:
+                result = result + "×"
+            else:
+                result = result + "_"
+        print(result)
+        return False
+
+
+def main():
+    print_instructions()
+    guess_left = 5
+    words = ["four", "five", "this", "late", "pink", "blue"]
+    hidden_word = random.choice(words)
+    result = ""
+
+    while guess_left > 0:
+        guess = input("Enter your guess (four lettered word): ")
+        if check_word(guess, hidden_word):
+            break
+        else:
+            guess_left -= 1
+            print("You have ", guess_left, " attempts left")
+
+
+main()
